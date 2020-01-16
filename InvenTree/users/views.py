@@ -127,4 +127,4 @@ class UpdateUserView(UpdateView):
     template_name = 'user_form.html'
     form_class = UserUpdateForm
     success_url = reverse_lazy('user-list')
-    # pk_url_kwarg = 'pk'
+    # pk_url_kwarg = 'pk' 
