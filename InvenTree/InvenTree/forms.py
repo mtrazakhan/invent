@@ -7,7 +7,10 @@ from __future__ import unicode_literals
 
 from django import forms
 from crispy_forms.helper import FormHelper
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User #commented by tasleem
+from django.contrib.auth import get_user_model #added by tasleem
+
+User = get_user_model() #added by tasleem
 
 
 class HelperForm(forms.ModelForm):

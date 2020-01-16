@@ -18,7 +18,8 @@ from django.db.models import Sum
 from django.db.models import prefetch_related_objects
 from django.core.validators import MinValueValidator
 
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User   #Commented by tasleem
+from django.contrib.auth import get_user_model #Added by tasleem
 from django.db.models.signals import pre_delete
 from django.dispatch import receiver
 
@@ -37,6 +38,7 @@ from InvenTree.status_codes import BuildStatus, StockStatus, OrderStatus
 
 from company.models import SupplierPart
 
+User = get_user_model()   #Added by tasleem
 
 class PartCategory(InvenTreeTree):
     """ PartCategory provides hierarchical organization of Part objects.

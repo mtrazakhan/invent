@@ -17,10 +17,13 @@ from django.db.models import Sum
 from django.apps import apps
 from django.urls import reverse
 from django.conf import settings
+from django.contrib.auth import get_user_model #Added by tasleem
 
 from InvenTree.fields import InvenTreeURLField
 from InvenTree.status_codes import OrderStatus
 from common.models import Currency
+
+User = get_user_model() #Added by tasleem
 
 
 def rename_company_image(instance, filename):
@@ -406,3 +409,20 @@ class SupplierPriceBreak(models.Model):
             mpn=self.part.MPN,
             cost=self.cost,
             quan=self.quantity)
+
+# # Added by tasleem
+#
+# EMPLOYEE_TYPES = {
+#
+# }
+#
+#
+# class Employee(models.Model):
+#     # company = models.ForeignKey('company.Company', on_delete=models.CASCADE)
+#     company = models.ForeignKey('company.Company', on_delete=models.CASCADE, null=True)
+#     job_role = models.CharField(max_length=50)
+#     # user = models.ForeignKey(User, on_delete=models.CASCADE)
+#     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='employee')
+#
+#     def __str__(self):
+#         return "{} - Profile {}".format(self.user, self.job_role)

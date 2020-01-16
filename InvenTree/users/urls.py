@@ -8,4 +8,9 @@ user_urls = [
     url(r'token', views.GetAuthToken.as_view(), name='api-token'),
 
     url(r'^$', views.UserList.as_view()),
+    url(r'^users/', views.UserListView.as_view(), name='user-list'),  #added by tasleem
+    url(r'^create-user/', views.CreateUserView.as_view(), name='create-user'),  #added by tasleem
+    url(r'^update-user/(?P<pk>[a-zA-Z0-9_]+)/', views.UpdateUserView.as_view(), name='update-user'),
+    url(r'^activate/(?P<uid>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
+        views.AccountActivationView.as_view(), name='acount-activate')
 ]

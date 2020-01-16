@@ -12,7 +12,8 @@ from django.urls import reverse
 
 from django.db import models, transaction
 from django.core.validators import MinValueValidator
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User  #Commented by tasleem
+from django.contrib.auth import get_user_model  #Added by tasleem
 from django.db.models.signals import pre_delete
 from django.dispatch import receiver
 
@@ -28,6 +29,7 @@ from InvenTree.fields import InvenTreeURLField
 
 from part.models import Part
 
+User = get_user_model()   #Added by tasleem
 
 class StockLocation(InvenTreeTree):
     """ Organization tree for StockItem objects

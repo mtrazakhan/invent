@@ -24,6 +24,8 @@ from .forms import EditCompanyForm
 from .forms import CompanyImageForm
 from .forms import EditSupplierPartForm
 from .forms import EditPriceBreakForm
+from django.contrib.auth import get_user_model  #Added by tasleem
+User = get_user_model() #Added by tasleem
 
 
 class CompanyIndex(ListView):
