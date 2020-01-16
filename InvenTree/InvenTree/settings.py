@@ -90,6 +90,7 @@ INSTALLED_APPS = [
     'build.apps.BuildConfig',
     'order.apps.OrderConfig',
     'users',   #added by tasleem
+    'access',  #Added by tasleem
 
     # Third part add-ons
     'django_filters',               # Extended filter functionality
@@ -102,7 +103,7 @@ INSTALLED_APPS = [
     'django_cleanup',               # Automatically delete orphaned MEDIA files
     'qr_code',                      # Generate QR codes
     'mptt',                         # Modified Preorder Tree Traversal
-    'rolepermissions',              #Added by tasleem
+    # 'rolepermissions',              #Added by tasleem
 ]
 
 AUTH_USER_MODEL = 'users.User'   #added by tasleem
@@ -291,4 +292,4 @@ DBBACKUP_STORAGE_OPTIONS = {
     'location': CONFIG.get('backup_dir', tempfile.gettempdir()),
 }
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'     #Added by tasleem
