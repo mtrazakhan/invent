@@ -15,6 +15,8 @@ from mptt.models import MPTTModel, TreeForeignKey
 from .validators import validate_tree_name
 
 
+
+
 class InvenTreeTree(MPTTModel):
     """ Provides an abstracted self-referencing tree model for data categories.
 
@@ -150,3 +152,4 @@ def before_delete_tree_item(sender, instance, using, **kwargs):
     for child in instance.children.all():
         child.parent = instance.parent
         child.save()
+
