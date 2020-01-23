@@ -6,13 +6,13 @@
 <div>
     {% for u in user_list %}
     <div>
-        {{u.pk}}
+        {{u.user_Id}}
         {{ u.first_name }}
         {{u.last_name}}
         {{u.email}}
         {{u.user_type}}
         {{u.job_role}}
-        {{u.is_active}}
+        {{u.status}}
     <a href="{% url 'update-user' u.pk %}">edit</a>
     <a href="{% url 'delete-user' u.pk %}">delete</a>
 

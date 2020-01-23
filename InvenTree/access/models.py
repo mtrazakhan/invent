@@ -1,16 +1,13 @@
 from django.db import models
-from django.contrib.auth import get_user_model
 
 import random
 import string
 
-User = get_user_model()
 
-
-def jobId(stringLength=6):
+def jobId():
+    stringLength = 6
     alphanumeric = string.ascii_letters + string.digits
     return ''.join(random.choice(alphanumeric) for i in range(stringLength))
-jobId = jobId(6)
 
 
 class JobRole(models.Model):

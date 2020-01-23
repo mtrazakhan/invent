@@ -11,10 +11,10 @@ class UserCreationForm(AuthUserCreationForm, HelperForm):
 
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'username', 'email', 'job_role', 'user_type',)
+        fields = ('first_name', 'last_name', 'username', 'email', 'status', 'job_role', 'user_type')
 
 
 class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'username', 'email', 'job_role', 'user_type',)
+        fields = ('first_name', 'last_name', 'username', 'email', 'status', 'job_role', 'user_type')

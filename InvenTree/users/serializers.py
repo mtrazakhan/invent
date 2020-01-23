@@ -11,13 +11,14 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = User
-        fields = ('pk',
+        fields = ('user_Id',
                   'username',
                   'first_name',
                   'last_name',
                   'email',
+                  'user_type',
                   'job_role',
-                  'is_active',
+                  'status',
                   )
 
 

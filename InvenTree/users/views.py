@@ -13,6 +13,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.contrib.auth import get_user_model #Added by tasleem
 from .mail_verification import get_token_generator
+from django.contrib.auth.models import Permission, Group, _user_has_module_perms, _user_has_perm
 
 # from company.models import Employee #Added by tasleem
 
@@ -138,6 +139,17 @@ class DeleteUserView(DeleteView):
         pdb.set_trace()
         User.objects.get(username=_username).delete()
         super().form_valid(form)
+
+
+class CheckPermissions(generics.GenericAPIView):
+
+    def post(self, request, *args, **kwargs):
+        email = request.data.get('email')
+        user = User.objects.get(email=email)
+
+        perm = user.has_perm('company.add_company')
+
+        return Response({'user': user.username, 'perm': perm,})
 
 # from rest_framework import generics
 # from django.contrib.auth import get_user_model

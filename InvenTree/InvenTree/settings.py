@@ -1,14 +1,11 @@
 """
 Django settings for InvenTree project.
-
 In practice the settings in this file should not be adjusted,
 instead settings can be configured in the config.yaml file
 located in the top level project directory.
-
 This allows implementation configuration to be hidden from source control,
 as well as separate configuration parameters from the more complex
 database setup in this file.
-
 """
 
 import sys
@@ -89,8 +86,8 @@ INSTALLED_APPS = [
     'company.apps.CompanyConfig',
     'build.apps.BuildConfig',
     'order.apps.OrderConfig',
-    'users',   #added by tasleem
-    'access',  #Added by tasleem
+    'users',
+    'access',
 
     # Third part add-ons
     'django_filters',               # Extended filter functionality
@@ -103,10 +100,7 @@ INSTALLED_APPS = [
     'django_cleanup',               # Automatically delete orphaned MEDIA files
     'qr_code',                      # Generate QR codes
     'mptt',                         # Modified Preorder Tree Traversal
-    # 'rolepermissions',              #Added by tasleem
 ]
-
-AUTH_USER_MODEL = 'users.User'   #added by tasleem
 
 LOGGING = {
     'version': 1,
@@ -131,6 +125,8 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'InvenTree.middleware.AuthRequiredMiddleware',
 ]
+
+AUTH_USER_MODEL = 'users.User'
 
 if CONFIG.get('log_queries', False):
     MIDDLEWARE.append('InvenTree.middleware.QueryCountMiddleware')
@@ -161,7 +157,10 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
     ),
-    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
+    'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ]
 }
 
 WSGI_APPLICATION = 'InvenTree.wsgi.application'
@@ -292,4 +291,4 @@ DBBACKUP_STORAGE_OPTIONS = {
     'location': CONFIG.get('backup_dir', tempfile.gettempdir()),
 }
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'     #Added by tasleem
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
