@@ -13,7 +13,6 @@ from django.forms import HiddenInput
 from InvenTree.views import AjaxCreateView, AjaxUpdateView, AjaxDeleteView
 from InvenTree.status_codes import OrderStatus
 from InvenTree.helpers import str2bool
-
 from .models import Company
 from .models import SupplierPart
 from .models import SupplierPriceBreak

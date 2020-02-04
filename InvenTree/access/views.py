@@ -1,26 +1,31 @@
-from django.shortcuts import render
-from django.views import generics
-from django.contrib.auth.model import Groups
+import pdb
+from django.urls import reverse_lazy
+from rest_framework import generics
+from django.contrib.auth.models import Group
 
 
-class GroupsListView(generics.ListView):
-    model = Groups
+
+class GroupsListView(generics.ListAPIView):
+    model = Group
     template_name = 'access_list.html'
 
 
-class GroupsCreateView(generics.CreateView):
-    model = Groups
+
+class GroupsCreateView(generics.ListCreateAPIView):
+    model = Group
     template_name = 'access_form.html'
-    success_url = ''  # put reverse url of list view here
+    success_url = reverse_lazy('group-list')
 
 
-class GroupsUpdateView(generics.UpdateView):
-    model = Groups
-    template_name = 'access_form.html'
-    success_url = ''  # put reverse url of list view here
 
-
-class GroupsDeleteView(generics.DeleteView):
-    model = Groups
-    template_name = 'access_form.html'
-    success_url = ''  # put reverse url of list view here
+#
+# class GroupsUpdateView(generics.):
+#     model = Group
+#     template_name = 'access_form.html'
+#     success_url = reverse_lazy('group-list')
+#
+#
+# class GroupsDeleteView(generics.DeleteView):
+#     model = Group
+#     template_name = 'access_form.html'
+#     success_url = reverse_lazy('group-list')

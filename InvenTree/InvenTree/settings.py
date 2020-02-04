@@ -100,7 +100,9 @@ INSTALLED_APPS = [
     'django_cleanup',               # Automatically delete orphaned MEDIA files
     'qr_code',                      # Generate QR codes
     'mptt',                         # Modified Preorder Tree Traversal
+    # 'bootstrap_modal_forms',        # Added by tasleem for Model Form
 ]
+
 
 LOGGING = {
     'version': 1,
@@ -280,7 +282,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = CONFIG.get('media_root', os.path.join(BASE_DIR, 'media'))
 
 # crispy forms use the bootstrap templates
-CRISPY_TEMPLATE_PACK = 'bootstrap'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 # Use database transactions when importing / exporting data
 IMPORT_EXPORT_USE_TRANSACTIONS = True

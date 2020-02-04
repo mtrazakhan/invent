@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
-#Added by tasleem
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.core.mail import send_mail
-
 import random
 import string
 
@@ -33,7 +31,8 @@ def uniqueId():
 
 class User(AbstractUser):
     user_Id = models.CharField(max_length=6, default=uniqueId, editable=False, unique=True)
-    username = models.CharField(max_length=30, unique=True)
+    first_name = models.CharField(max_length=30, blank=True)
+    last_name = models.CharField(max_length=30, blank=True)
     email = models.EmailField(unique=True,
                               error_messages={
                                   'unique': "A user with that email already exists.",

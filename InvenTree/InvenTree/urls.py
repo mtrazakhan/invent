@@ -37,6 +37,7 @@ from .views import IndexView, SearchView, SettingsView, EditUserView, SetPasswor
 from .views import InfoView
 
 from users.urls import user_urls, user_api_urls
+from access.urls import access_urls
 
 admin.site.site_header = "InvenTree Admin"
 
@@ -69,6 +70,8 @@ settings_urls = [
 urlpatterns = [
     # User URLs
     url(r'^user/', include(user_urls)),
+    url(r'^access/', include(access_urls)),
+
     url(r'^part/', include(part_urls)),
     url(r'^supplier-part/', include(supplier_part_urls)),
     url(r'^price-break/', include(price_break_urls)),

@@ -3,15 +3,15 @@ URL lookup for Company app
 """
 
 
-from django.conf.urls import url, include
-from django.views.generic.base import RedirectView
+from django.conf.urls import url
+# from django.views.generic.base import RedirectView
 
 from . import views
 
 
-urlpatterns = [
-    url(r'new/?', views.GroupsCreateView.as_view(), name='group-create'),
-    url(r'list/?', views.GroupsListView.as_view(), name='group-list'),
+access_urls = [
+    url(r'create/?', views.GroupsCreateView.as_view(), name='group-create'),
+    url(r'access/?', views.GroupsListView.as_view(), name='group-list'),
 
     # # url(r'orders/?', views.CompanyDetail.as_view(template_name='company/orders.html'), name='company-detail-orders'),
 

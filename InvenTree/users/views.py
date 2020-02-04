@@ -1,5 +1,5 @@
-import pdb #Added by tasleem
-from django.urls import reverse_lazy #Added by tasleem
+import pdb
+from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView, TemplateView
 from django.template.loader import render_to_string
 from django.contrib.sites.shortcuts import get_current_site
@@ -11,17 +11,15 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework import status
-from django.contrib.auth import get_user_model #Added by tasleem
+from django.contrib.auth import get_user_model
 from .mail_verification import get_token_generator
 from django.contrib.auth.models import Permission, Group, _user_has_module_perms, _user_has_perm
 
-# from company.models import Employee #Added by tasleem
-
 from .serializers import UserSerializer
 
-from .forms import UserCreationForm, UserUpdateForm # Added by tasleem
+from .forms import UserCreationForm, UserUpdateForm
 
-User = get_user_model() #Added by tasleem
+User = get_user_model()
 
 
 class UserDetail(generics.RetrieveAPIView):
@@ -88,7 +86,7 @@ class CreateUserView(CreateView):
 
     def form_valid(self, form):
         user = form.save()
-        user.is_active = False
+        user.status = False
         user.save()
 
         uid, token = get_token_generator().generate_uid_token(user)
@@ -99,7 +97,7 @@ class CreateUserView(CreateView):
             'uid': uid,
             'token': token,
         })
-        user.email_user('account activation mail', message, 'inven@inventree.com')
+        user.email_user('account activation mail', message, 'mtrkhn33@gmail.com')
 
         return JsonResponse({'message': 'User created'})
 
@@ -129,16 +127,26 @@ class UpdateUserView(UpdateView):
     # pk_url_kwarg = 'pk'
 
 
-class DeleteUserView(DeleteView):
-    model = User
-    success_url = reverse_lazy('user-list')
-    template_name = 'user_delete.html'
+# class DeleteUserView(DeleteView):
+#     model = User
+#     success_url = reverse_lazy('user-list')
+#     template_name = 'user_delete.html'
+#
+#     def form_valid(self, form):
+#         _username = form.cleaned_data.get('username')
+#         pdb.set_trace()
+#         User.objects.get(username=_username).delete()
+#         super().form_valid(form)
 
-    def form_valid(self, form):
-        _username = form.cleaned_data.get('username')
-        pdb.set_trace()
-        User.objects.get(username=_username).delete()
-        super().form_valid(form)
+
+class DeleteUserView(DeleteView):
+    def  get(self, request):
+        id1 = request.GET.get('id', None)
+        User.objects.get(id=id1).delete()
+        data = {
+            'deleted': True
+        }
+        return JsonResponse(data)
 
 
 class CheckPermissions(generics.GenericAPIView):

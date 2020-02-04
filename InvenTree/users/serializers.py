@@ -4,7 +4,6 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 
-
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     """ Serializer for a User
     """
@@ -12,7 +11,6 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
         fields = ('user_Id',
-                  'username',
                   'first_name',
                   'last_name',
                   'email',
