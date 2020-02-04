@@ -1,0 +1,218 @@
+{% extends 'user_base.html' %}
+{% load static %}
+
+{% block content %}
+<h3>Users List</h3>
+<hr>
+
+<div id='button-toolbar'>
+    <div class='btn-group'>
+        <button type='button' class="btn btn-success" data-toggle="modal" data-target="#modalLoginForm" ><a href="{% url 'create-user' %}">Create New User</a></button>
+    </div>
+</div>
+<table id="usertable" class="table table-striped table-bordered" data-toggle="table" data-query-params="queryParams" data-pagination="true" data-search="true" style="width:100%">
+    <thead class="thead-dark">
+        <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>User Type</th>
+            <th>Job Role</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% if user_list %}
+    {% for u in user_list %}
+        <tr id="u-{{u.id}}">
+            <td class="userID userData" name="id"> {{ u.user_Id }}</td>
+            <td class="userFname userData" name="firstname"> {{ u.first_name }}</td>
+            <td class="userLname userData" name="lastname"> {{ u.last_name }}</td>
+            <td class="userEmail userData" name="email"> {{ u.email }}</td>
+            <td class="userType userData" name="usertype"> {{ u.user_type }}</td>
+            <td class="userJobrole userData" name="jobrole"> {{ u.job_role }}</td>
+            <td class="userStatus userData" name="status"> {{ u.status }}</td>
+            <td>
+              <button class="btn btn-success form-control" onClick="editUser({{u.id}})" data-toggle="modal" data-target="#myModal">EDIT</button>
+              <button class="btn btn-danger form-control" onClick="deleteUser({{u.id}})">DELETE</button>
+              <!--<button type="button" class="btn btn-default"><a href="{% url 'update-user' u.pk %}">Edit</a></button>-->
+              <!--<button type="button" class="btn btn-danger"><a href="{% url 'delete-user' u.pk %}">Delete</a></button>-->
+            </td>
+        </tr>
+    {% endfor %}
+    {% else %}
+    No Users
+    {% endif %}
+    </tbody>
+</table>
+
+<!-- Modal -->
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+          <h4 class="modal-title" id="myModalLabel">Update User</h4>
+        </div>
+        <form id="updateUser" action="">
+            <div class="modal-body">
+                <input class="form-control" id="form-id" type="hidden" name="id"/>
+                <label for="first_name">First Name</label>
+                <input class="form-control" id="form-first_name" type="text" name="firstname"/>
+                <label for="last_name">Last Name</label>
+                <input class="form-control" id="form-last_name" type="text" name="lastname"/>
+                <label for="email">Email</label>
+                <input class="form-control" id="form-email" type="text" name="email"/>
+                <label for="user_type">User Type</label>
+                <input class="form-control" id="form-user_type" type="text" name="usertype"/>
+                <label for="job_role">Job Role</label>
+                <input class="form-control" id="form-job_role" type="text" name="jobrole"/>
+                <label for="status">Status</label>
+                <input class="form-control" id="form-status" type="text" name="status"/>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" >Save changes</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+{% endblock %}
+
+<!--<script type='text/javascript'>-->
+<!--    $(document).ready(function(){-->
+<!--        $('.defaultpicker').selectpicker({-->
+<!--          style: 'btn-default',-->
+<!--          size: 3-->
+<!--        });-->
+
+<!--        $('.infopicker').selectpicker({-->
+<!--          style: 'btn-info',-->
+<!--          size: 3-->
+<!--        });-->
+
+<!--        $('.warningpicker').selectpicker({-->
+<!--          style: 'btn-warning',-->
+<!--          size: 3-->
+<!--        });-->
+
+<!--         $('.table-responsive').on('show.bs.select', function () {-->
+<!--          console.log("triggered show bs select");-->
+<!--          $('.table-responsive').css( "overflow", "hidden" );-->
+<!--        });-->
+<!--        $('.table-responsive').on('hide.bs.select', function () {-->
+<!--          console.log("triggered hide bs select");-->
+<!--          $('.table-responsive').css( "overflow", "auto" );-->
+<!--        })-->
+<!--    });-->
+
+<!--</script>-->
+
+<!--<script type='text/javascript'>-->
+<!--$(document).ready(function () {-->
+<!--{% block js_ready %}-->
+<!--{% endblock %}-->
+
+<!--    inventreeDocReady();-->
+
+<!--    showCachedAlerts();-->
+<!--});-->
+<!--</script>-->
+
+<!--<script type="text/javascript">-->
+
+<!--$(document).ready(function() {-->
+<!--    var table = $('#usertable').DataTable( {-->
+<!--        lengthChange: false,-->
+<!--        } );-->
+
+<!--    table.buttons().container()-->
+<!--        .appendTo( '#userinfo_wrapper .col-sm-6:eq(0)' );-->
+<!--} );-->
+
+<!--</script>-->
+
+{% block javascript %}
+<script>
+$("form#addUser").submit(function() {
+    var nameInput = $('input[name="name"]').val().trim();
+    var addressInput = $('input[name="address"]').val().trim();
+    var ageInput = $('input[name="age"]').val().trim();
+    if (nameInput && addressInput && ageInput) {
+        // Create Ajax Call
+        $.ajax({
+            url: '{% url "create-user" %}',
+            data: {
+                'name': nameInput,
+                'address': addressInput,
+                'age': ageInput
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data.user) {
+                  appendToUsrTable(data.user);
+                }
+            }
+        });
+      } else {
+        alert("All fields must have a valid value.");
+    }
+    $('form#addUser').trigger("reset");
+    return false;
+});
+function appendToUsrTable(user) {
+  $("#userTable > tbody:last-child").append(`
+        <tr id="u-${u.id}">
+            <td class="userID" name="id">${u.user_Id}</td>
+            '<td class="userFname" name="firstname">${u.first_name}</td>
+            '<td class="userLname" name="lastname">${u.last_name}</td>
+            '<td class="userEmail" name="email">${u.email}</td>
+            '<td class="userType" name="usertype">${u.user_type}</td>
+            '<td class="userJobrole" name="jobrole">${u.job_role}</td>
+            '<td class="userJobrole" name="status">${u.status}</td>
+            '<td align="center">
+                <button class="btn btn-success form-control" onClick="editUser(${u.id})" data-toggle="modal" data-target="#myModal")">EDIT</button>
+            </td>
+            <td align="center">
+                <button class="btn btn-danger form-control" onClick="deleteUser(${u.id})">DELETE</button>
+            </td>
+        </tr>
+    `);
+}
+</script>
+{% endblock javascript %}
+
+<script>
+
+  $(function(){
+   $(".dropdown-menu").on('click', 'a', function(){
+       $(this).parents('.dropdown').find('button').text($(this).text());
+   });
+});
+
+
+// Delete Django Ajax Call
+function deleteUser(id) {
+  var action = confirm("Are you sure you want to delete this user?");
+  if (action != false) {
+    $.ajax({
+        url: '{% url "delete-user" %}',
+        data: {
+            'id': id,
+        },
+        dataType: 'json',
+        success: function (data) {
+            if (data.deleted) {
+              $("#userTable #u-" + id).remove();
+            }
+        }
+    });
+  }
+}
+
+</script>

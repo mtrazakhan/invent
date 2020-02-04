@@ -4,19 +4,19 @@
 # Specify database parameters below as they appear in the Django docs
 database:
   # Example configuration - sqlite (default)
-  ENGINE: django.db.backends.sqlite3
-  NAME: '../inventree_default_db.sqlite3'
+#  ENGINE: django.db.backends.sqlite3
+#  NAME: '../inventree_default_db.sqlite3'
 #
   # For more complex database installations, further parameters are required
   # Refer to the django documentation for full list of options
   
   # Example Configuration - MySQL
-#  ENGINE: django.db.backends.mysql
-#  NAME: invent
-#  USER: root
-#  PASSWORD: Mtrkhan@123
-#  HOST: 'localhost'
-#  PORT: '3306'
+  ENGINE: django.db.backends.mysql
+  NAME: invent
+  USER: root
+  PASSWORD: Mtrkhan@123
+  HOST: 'localhost'
+  PORT: '3306'
 
 # Select default system language (default is 'en-us')
 language: en-us

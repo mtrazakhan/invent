@@ -36,7 +36,8 @@ from rest_framework.documentation import include_docs_urls
 from .views import IndexView, SearchView, SettingsView, EditUserView, SetPasswordView
 from .views import InfoView
 
-from users.urls import user_urls
+from users.urls import user_urls, user_api_urls
+from access.urls import access_urls
 
 admin.site.site_header = "InvenTree Admin"
 
@@ -48,9 +49,8 @@ apipatterns = [
     url(r'^stock/', include(stock_api_urls)),
     url(r'^build/', include(build_api_urls)),
     url(r'^po/', include(po_api_urls)),
-
-    # User URLs
-    url(r'^user/', include(user_urls)),
+# User URLs
+    url(r'^user/', include(user_api_urls)),
 
     # InvenTree information endpoint
     url(r'^$', InfoView.as_view(), name='inventree-info'),
@@ -68,6 +68,10 @@ settings_urls = [
 ]
 
 urlpatterns = [
+    # User URLs
+    url(r'^user/', include(user_urls)),
+    url(r'^access/', include(access_urls)),
+
     url(r'^part/', include(part_urls)),
     url(r'^supplier-part/', include(supplier_part_urls)),
     url(r'^price-break/', include(price_break_urls)),
