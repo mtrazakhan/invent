@@ -6,7 +6,7 @@ django_filter==2.2.0            # Extended filtering options
 django-mptt==0.10.0             # Modified Preorder Tree Traversal
 django-dbbackup==3.2.0          # Database backup / restore functionality
 coreapi==2.3.0                  # API documentation
-pygments==2.2.0                 # Syntax highlighting
+pygments==2.7.4                 # Syntax highlighting
 tablib==0.13.0                  # Import / export data files
 django-crispy-forms==1.8.1      # Form helpers
 django-import-export==2.0.0     # Data import / export for admin interface
